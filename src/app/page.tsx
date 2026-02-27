@@ -104,8 +104,8 @@ export default function HuatHuatPage() {
             <div className="mx-auto w-full max-w-2xl p-6 bg-white/20 hover:bg-white/30 backdrop-blur-xl rounded-[2rem] border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left mb-8 relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-[150%] animate-[shimmer_3s_infinite] opacity-0 group-hover:opacity-100 transition-opacity" />
               
-              <div className="h-12 w-12 rounded-full bg-gradient-to-br from-orange-100 to-amber-200 flex items-center justify-center shrink-0 shadow-inner">
-                <ShieldAlert className="h-6 w-6 text-orange-600" />
+              <div className="h-12 w-12 rounded-full bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center shrink-0 shadow-lg shadow-red-500/20">
+                <ShieldAlert className="h-6 w-6 text-white" />
               </div>
               <div className="flex-1 space-y-1">
                 <p className="text-xs font-black text-slate-800 uppercase tracking-[0.2em]">
@@ -130,7 +130,7 @@ export default function HuatHuatPage() {
             {selectedStrategy ? (
               <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xl animate-in zoom-in duration-300">
                 <div className="flex items-start gap-4">
-                  <div className="hidden sm:flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <div className="hidden sm:flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-red-500 to-rose-600 text-white shadow-lg shadow-red-500/20">
                     <Dices className="h-5 w-5" />
                   </div>
                   <div className="space-y-1">

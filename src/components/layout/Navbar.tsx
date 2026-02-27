@@ -35,10 +35,10 @@ export function Navbar() {
 
         <div className="flex flex-1 items-center gap-1.5 sm:gap-4 mr-2 sm:mr-0">
           <Link href="/" className="flex items-center gap-2 px-1 sm:px-2 shrink-0">
-            <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg sm:rounded-xl bg-primary shadow-lg shadow-primary/20">
-              <PartyPopper className="h-4 w-4 sm:h-5 sm:w-5 text-primary-foreground" />
+            <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg sm:rounded-xl bg-red-600 shadow-lg shadow-red-600/20 border border-amber-200/50">
+              <span className="text-amber-200 font-black text-lg sm:text-xl leading-none">發</span>
             </div>
-            <span className="hidden text-xl font-black italic tracking-tighter text-primary lg:block">
+            <span className="hidden text-xl font-black italic tracking-tighter text-primary md:block">
               HUAT <span className="text-orange-500">HUAT</span>
             </span>
           </Link>

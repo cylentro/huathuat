@@ -46,25 +46,60 @@ export function FunBackground() {
 
       {/* Floating Abstract Icons instead of Emojis */}
       <div className="absolute top-[15%] left-[5%] animate-float opacity-20 hidden md:block">
-        <Gem className="w-16 h-16 text-primary rotate-12" strokeWidth={1} />
+        <div 
+          className="transition-transform duration-500 ease-out"
+          style={{ transform: `scale(${1 + Math.abs(mousePos.x) * 0.4})` }}
+        >
+          <Gem className="w-16 h-16 text-primary rotate-12" strokeWidth={1} />
+        </div>
       </div>
       <div className="absolute top-[25%] right-[8%] animate-float-delayed opacity-20 hidden md:block">
-        <Coins className="w-20 h-20 text-orange-500 -rotate-12" strokeWidth={1} />
+        <div 
+          className="transition-transform duration-700 ease-out"
+          style={{ transform: `scale(${1 + Math.abs(mousePos.y) * 0.5})` }}
+        >
+          <Coins className="w-20 h-20 text-orange-500 -rotate-12" strokeWidth={1} />
+        </div>
       </div>
       <div className="absolute bottom-[20%] left-[10%] animate-sway opacity-20 hidden md:block">
-        <CircleDollarSign className="w-14 h-14 text-amber-500 rotate-6" strokeWidth={1.5} />
+        <div 
+          className="transition-transform duration-500 ease-out"
+          style={{ transform: `scale(${1 + (Math.abs(mousePos.x) + Math.abs(mousePos.y)) * 0.25})` }}
+        >
+          <CircleDollarSign className="w-14 h-14 text-amber-500 rotate-6" strokeWidth={1.5} />
+        </div>
       </div>
       <div className="absolute bottom-[30%] right-[10%] animate-pulse opacity-20 hidden md:block">
-        <Sparkles className="w-12 h-12 text-yellow-500" strokeWidth={1.5} />
+        <div 
+          className="transition-transform duration-1000 ease-out"
+          style={{ transform: `scale(${1 + Math.abs(mousePos.x) * 0.6})` }}
+        >
+          <Sparkles className="w-12 h-12 text-yellow-500 animate-[spin_8s_linear_infinite]" strokeWidth={1.5} />
+        </div>
       </div>
       <div className="absolute top-[40%] left-[12%] animate-sway opacity-15 hidden lg:block">
-        <Dices className="w-16 h-16 text-primary -rotate-45" strokeWidth={1} />
+        <div 
+          className="transition-transform duration-700 ease-out"
+          style={{ transform: `scale(${1 + Math.abs(mousePos.y) * 0.4})` }}
+        >
+          <Dices className="w-16 h-16 text-primary -rotate-45" strokeWidth={1} />
+        </div>
       </div>
       <div className="absolute bottom-[45%] right-[15%] animate-float-delayed opacity-15 hidden lg:block">
-        <Gem className="w-10 h-10 text-orange-400 rotate-45" strokeWidth={1.5} />
+        <div 
+          className="transition-transform duration-500 ease-out"
+          style={{ transform: `scale(${1 + Math.abs(mousePos.x) * 0.3})` }}
+        >
+          <Gem className="w-10 h-10 text-orange-400 rotate-45" strokeWidth={1.5} />
+        </div>
       </div>
       <div className="absolute top-[10%] right-[30%] animate-sway opacity-15 hidden lg:block">
-        <Sparkles className="w-8 h-8 text-amber-500 rotate-12" strokeWidth={1} />
+        <div 
+          className="transition-transform duration-1000 ease-out"
+          style={{ transform: `scale(${1 + (Math.abs(mousePos.x) + Math.abs(mousePos.y)) * 0.3})` }}
+        >
+          <Sparkles className="w-8 h-8 text-amber-500 animate-[spin_10s_linear_infinite] opacity-60" strokeWidth={1} />
+        </div>
       </div>
 
       {/* Floating Particles/Dust (Interactive multiple parallax layers) */}
