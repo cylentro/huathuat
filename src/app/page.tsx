@@ -33,6 +33,8 @@ export default function HuatHuatPage() {
   const [setCount, setSetCount] = useState(1);
   const [results, setResults] = useState<{ numbers: number[]; timestamp: number }[]>([]);
   const resultsRef = useRef<HTMLDivElement>(null);
+  const strategySectionRef = useRef<HTMLDivElement>(null);
+  const strategyExplanationRef = useRef<HTMLDivElement>(null);
 
   // Reset on game change
   useEffect(() => {
@@ -77,6 +79,24 @@ export default function HuatHuatPage() {
     }, 100);
   };
 
+  const handleFeelingLucky = (shouldScroll = true) => {
+    const randomIndex = Math.floor(Math.random() * strategies.length);
+    const randomStrategy = strategies[randomIndex];
+    setStrategyId(randomStrategy.id);
+
+    if (shouldScroll) {
+      // Auto-scroll to section header with enough delay for React re-render
+      setTimeout(() => {
+        if (strategySectionRef.current) {
+          strategySectionRef.current.scrollIntoView({ 
+            behavior: "smooth", 
+            block: "start"
+          });
+        }
+      }, 300);
+    }
+  };
+
   const selectedStrategy = strategies.find(s => s.id === strategyId);
 
   return (
@@ -118,19 +138,34 @@ export default function HuatHuatPage() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between px-2">
+            <div 
+              ref={strategySectionRef}
+              className="flex items-center justify-between px-2 scroll-mt-24"
+            >
               <h2 className="flex items-center gap-2 text-sm font-black uppercase tracking-widest text-slate-900">
                 <Settings2 className="h-4 w-4" />
                 1. Select Strategy
               </h2>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => handleFeelingLucky(false)}
+                className="h-8 gap-2 rounded-full px-4 text-xs font-black text-primary hover:bg-primary/5 hover:text-primary transition-all active:scale-95"
+              >
+                <Dices className="h-3.5 w-3.5" />
+                Anyhow Huat
+              </Button>
             </div>
 
             <StrategyGrid selectedId={strategyId} onSelect={setStrategyId} strategies={strategies} />
 
             {selectedStrategy ? (
-              <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xl animate-in zoom-in duration-300">
+              <div 
+                ref={strategyExplanationRef}
+                className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xl animate-in zoom-in duration-300 scroll-mt-24"
+              >
                 <div className="flex items-start gap-4">
-                  <div className="hidden sm:flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-red-500 to-rose-600 text-white shadow-lg shadow-red-500/20">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-red-500 to-rose-600 text-white shadow-lg shadow-red-500/20">
                     <Dices className="h-5 w-5" />
                   </div>
                   <div className="space-y-1">
@@ -175,20 +210,19 @@ export default function HuatHuatPage() {
             </div>
 
             <Button
-              onClick={handleGenerate}
+              onClick={selectedStrategy ? handleGenerate : () => handleFeelingLucky(true)}
               size="sm"
-              disabled={!selectedStrategy}
               className={cn(
                 "h-10 sm:h-12 rounded-xl sm:rounded-full px-4 sm:px-6 gap-2 text-xs sm:text-base font-black transition-all flex-1 sm:flex-none",
                 selectedStrategy
                   ? "bg-primary hover:bg-primary/90 text-white shadow-[0_8px_30px_rgba(255,0,0,0.15)] hover:scale-[1.02] active:scale-[0.98]"
-                  : "bg-primary/5 text-primary/20 cursor-not-allowed opacity-50 border border-primary/10"
+                  : "bg-primary text-white shadow-[0_8px_30px_rgba(255,0,0,0.15)] animate-pulse hover:scale-[1.02] active:scale-[0.98]"
               )}
             >
               {!selectedStrategy ? (
                 <>
-                  <Settings2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 hidden xs:block" />
-                  <span className="text-[10px] xs:text-xs">SELECT STRATEGY</span>
+                  <Dices className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  <span className="text-[10px] xs:text-xs text-white">ANYHOW HUAT</span>
                 </>
               ) : (
                 <>
