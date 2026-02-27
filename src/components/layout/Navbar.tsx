@@ -5,7 +5,9 @@ import { usePathname } from "next/navigation";
 import { useGame, GameId } from "@/context/GameContext";
 import { 
   PartyPopper, 
+  LayoutDashboard, 
   BarChart3, 
+  ChevronDown,
   Sparkles
 } from "lucide-react";
 import { 
@@ -19,7 +21,7 @@ import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const pathname = usePathname();
-  const { activeGameId, setActiveGameId, games } = useGame();
+  const { activeGameId, setActiveGameId, games, currentGame } = useGame();
 
   const navItems = [
     { name: "Huat Engine", href: "/", icon: Sparkles },

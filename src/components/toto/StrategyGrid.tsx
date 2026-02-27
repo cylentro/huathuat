@@ -15,8 +15,7 @@ import {
   Binary,
   TrendingDown,
   Trophy,
-  Sparkles,
-  type LucideIcon
+  Sparkles
 } from "lucide-react";
 
 interface StrategyGridProps {
@@ -26,7 +25,7 @@ interface StrategyGridProps {
 }
 
 // Map strategies to icons for more professional look
-const ICON_MAP: Record<string, LucideIcon> = {
+const ICON_MAP: Record<string, any> = {
   // Toto
   "hot-numbers": LineChart,
   "cold-numbers": History,

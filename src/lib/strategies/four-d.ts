@@ -5,7 +5,7 @@ import { StrategyFn } from "../generators/types";
 const pad4 = (n: number) => n.toString().padStart(4, '0');
 
 // 1. Quick Pick
-export const quickPick: StrategyFn = (_config) => {
+export const quickPick: StrategyFn = (config) => {
     return [Math.floor(Math.random() * 10000)];
 };
 
@@ -143,7 +143,7 @@ export const positionalTrend: StrategyFn = (config, history) => {
         const d1 = parseInt(pad4(lastTwo[0]?.numbers[0] || 0)[i]);
         const d2 = parseInt(pad4(lastTwo[1]?.numbers[0] || 0)[i]);
         const diff = d1 - d2;
-        const next = (d1 + diff + 10) % 10;
+        let next = (d1 + diff + 10) % 10;
         result.push(next);
     }
     return [parseInt(result.join(''))];

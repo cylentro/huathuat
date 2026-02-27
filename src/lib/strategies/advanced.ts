@@ -3,7 +3,7 @@ import { StrategyFn } from "../generators/types";
 
 export const frequencyAnalysis: StrategyFn = (config, history) => {
     const freqMap: Record<number, number> = {};
-    history.forEach((draw: any) => {
+    history.forEach(draw => {
         draw.numbers.forEach((n: number) => {
             freqMap[n] = (freqMap[n] || 0) + 1;
         });
@@ -76,7 +76,7 @@ export const sumRange: StrategyFn = (_config) => {
 export const cycleTracker: StrategyFn = (config, history) => {
     // CycleTracker: mix of "due" (long time no see) and "repeaters" (just saw)
     const lastSeen: Record<number, number> = {};
-    history.forEach((draw: any, idx: number) => {
+    history.forEach((draw, idx) => {
         draw.numbers.forEach((n: number) => {
             if (lastSeen[n] === undefined) lastSeen[n] = idx;
         });

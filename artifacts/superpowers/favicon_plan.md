@@ -1,17 +1,19 @@
-# Favicon Change Plan
+# Favicon Change Plan (SVG Edition)
 
-Taks: Change the favicon to a thematic icon (HUAT HUAT theme).
+Task: Change the favicon to a thematic SVG icon (Fa or Pineapple).
 
 ## Proposed Changes
-1. **Generate Icon**: Use `generate_image` to create a vibrant, modern, and lucky icon (e.g., a stylized gold coin or lucky pineapple).
-2. **Apply Icon**: Overwrite `src/app/favicon.ico` with the new design.
-3. **Verify**: Ensure the file is updated.
+1. **Design SVG**: Create a premium SVG icon featuring the "發" (Fa) character with a vibrant red and gold color palette.
+2. **Implementation**: 
+    - Save the SVG as `src/app/icon.svg`. This is the modern Next.js way to handle SVG icons.
+    - Delete the old `src/app/favicon.ico` to avoid conflicts.
+3. **Verify**: Check the browser or run a local dev server to see the change.
 
 ## Brainstorming
-- **Theme**: "HUAT HUAT" (Prosperity, Luck).
-- **Icon Idea**: A glowing, stylized 3D gold coin with the character "發" (Fa) or a golden pineapple.
-- **Why**: Standard Next.js favicons are generic. A custom one enhances the premium feel.
+- **Design**: A circle with a red gradient background, a golden border, and the character "發" in the center in a bold, modern font style.
+- **Alternative**: A minimalist pineapple icon with geometric patterns.
+- **Preference**: The "發" character is very iconic for "HUAT" (prosperity).
 
 ## Verification
-- Run `ls -l src/app/favicon.ico` to check the file size change.
-- (Manual) User can refresh the page to see the new icon.
+- File exists: `src/app/icon.svg`
+- File removed: `src/app/favicon.ico`

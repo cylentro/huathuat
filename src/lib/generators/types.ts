@@ -1,5 +1,5 @@
 
-
+import { TotoDraw } from "@/data/sg-toto-history";
 
 export interface GeneratorConfig {
     name: string;

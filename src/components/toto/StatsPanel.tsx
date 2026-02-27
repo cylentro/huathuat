@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 export interface DrawRecord {
@@ -25,7 +26,7 @@ export const StatsPanel = ({ history, gameType = "toto" }: StatsPanelProps) => {
     for (let i = minRange; i <= maxRange; i++) freq[i] = 0;
     
     history.slice(0, 500).forEach(draw => {
-      draw.numbers.forEach(n => {
+      draw.numbers.forEach((n: number) => {
         if (isToto) {
           freq[n] = (freq[n] || 0) + 1;
         } else {

@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-
+import { SINGAPORE_TOTO } from "@/lib/generators/singapore-toto";
 
 export type GameId = "sg-toto" | "sg-4d";
 
@@ -42,6 +42,7 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
   
   const [activeGameId, setActiveGameIdState] = useState<GameId>("sg-toto");
   const [history, setHistory] = useState<HistoryItem[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   // Sync state with URL
   useEffect(() => {
@@ -72,20 +73,24 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
   // Load from localStorage
   useEffect(() => {
     const savedHistory = localStorage.getItem("toto_history");
-    if (savedHistory && history.length === 0) {
+    if (savedHistory) {
       try {
         const parsed = JSON.parse(savedHistory);
-        if (parsed.length > 0) setHistory(parsed);
+        if (parsed && Array.isArray(parsed) && parsed.length > 0) {
+          setHistory(parsed);
+        }
       } catch (e) {
         console.error("Failed to load history", e);
       }
     }
+    setIsLoaded(true);
   }, []);
 
-
   useEffect(() => {
-    localStorage.setItem("toto_history", JSON.stringify(history));
-  }, [history]);
+    if (isLoaded) {
+      localStorage.setItem("toto_history", JSON.stringify(history));
+    }
+  }, [history, isLoaded]);
 
   const addHistory = (item: Omit<HistoryItem, "gameId">) => {
     const newItem: HistoryItem = { ...item, gameId: activeGameId };

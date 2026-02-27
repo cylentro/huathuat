@@ -34,8 +34,8 @@ export default function HuatHuatPage() {
 
   // Reset on game change
   useEffect(() => {
-    if (strategyId !== "") setStrategyId("");
-    if (results.length !== 0) setResults([]);
+    setStrategyId("");
+    setResults([]);
   }, [activeGameId]);
 
   const handleGenerate = () => {
@@ -74,7 +74,7 @@ export default function HuatHuatPage() {
           Want to <span className="text-primary">HUAT</span>? Pick Numbers Now!
         </h1>
         <p className="max-w-xl text-slate-500 font-medium md:text-lg">
-          Don&apos;t blur lah! Just pick one logical strategy below and generate your HUAT numbers. Our prediction engine steady one!
+          Don't blur lah! Just pick one logical strategy below and generate your HUAT numbers. Our prediction engine steady one!
         </p>
       </div>
 

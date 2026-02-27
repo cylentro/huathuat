@@ -45,7 +45,7 @@ export const balanced: StrategyFn = (config) => {
 export const hotNumbers: StrategyFn = (config, history) => {
     const recent = history.slice(0, 50);
     const freqMap: Record<number, number> = {};
-    recent.forEach((draw: any) => {
+    recent.forEach(draw => {
         draw.numbers.forEach((n: number) => {
             freqMap[n] = (freqMap[n] || 0) + 1;
         });
@@ -73,11 +73,10 @@ export const hotNumbers: StrategyFn = (config, history) => {
 
 export const coldNumbers: StrategyFn = (config, history) => {
     const lastSeen: Record<number, number> = {};
-    for (let i = 1; i <= config.max; i++) lastSeen[i] = 9999;
-
-    history.forEach((draw: any, idx: number) => {
+    // Removed explicit initialization with 9999, relying on 'undefined' check
+    history.forEach((draw, idx) => {
         draw.numbers.forEach((n: number) => {
-            if (lastSeen[n] === 9999) lastSeen[n] = idx;
+            if (lastSeen[n] === undefined) lastSeen[n] = idx;
         });
     });
 
