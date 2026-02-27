@@ -1,65 +1,214 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useState, useMemo, useEffect } from "react";
+import { useGame } from "@/context/GameContext";
+import { STRATEGIES } from "@/lib/generators/registry";
+import { FOUR_D_STRATEGIES } from "@/lib/generators/four-d-registry";
+import { SINGAPORE_TOTO } from "@/lib/generators/singapore-toto";
+import { SINGAPORE_4D } from "@/lib/generators/singapore-4d";
+import { SG_TOTO_HISTORY } from "@/data/sg-toto-history";
+import { SG_4D_HISTORY } from "@/data/sg-4d-history";
+import { StrategyGrid } from "@/components/toto/StrategyGrid";
+import { SetCounter } from "@/components/toto/SetCounter";
+import { ResultSet } from "@/components/toto/ResultSet";
+import { FourDResultSet } from "@/components/toto/FourDResultSet";
+import { HuatMeter } from "@/components/toto/HuatMeter";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { Sparkles, Settings2, Zap, ArrowRight, Dices, PartyPopper } from "lucide-react";
+
+export default function HuatHuatPage() {
+  const { addHistory, activeGameId } = useGame();
+  
+  // Game-aware data selection
+  const { config, history, strategies } = useMemo(() => {
+    if (activeGameId === "sg-4d") {
+      return { config: SINGAPORE_4D, history: SG_4D_HISTORY, strategies: FOUR_D_STRATEGIES };
+    }
+    return { config: SINGAPORE_TOTO, history: SG_TOTO_HISTORY, strategies: STRATEGIES };
+  }, [activeGameId]);
+
+  const [strategyId, setStrategyId] = useState<string>("");
+  const [setCount, setSetCount] = useState(1);
+  const [results, setResults] = useState<{ numbers: number[]; timestamp: number }[]>([]);
+
+  // Reset on game change
+  useEffect(() => {
+    if (strategyId !== "") setStrategyId("");
+    if (results.length !== 0) setResults([]);
+  }, [activeGameId]);
+
+  const handleGenerate = () => {
+    const strategy = strategies.find(s => s.id === strategyId);
+    if (!strategy) return;
+
+    const count = setCount;
+    const newSets: number[][] = [];
+    const newResults: { numbers: number[]; timestamp: number }[] = [];
+    const now = Date.now();
+
+    for (let i = 0; i < count; i++) {
+      const nums = strategy.generate(config, history);
+      newSets.push(nums);
+      newResults.push({ numbers: nums, timestamp: now + i });
+    }
+
+    setResults(newResults);
+    addHistory({
+      strategy: strategy.name,
+      sets: newSets,
+      timestamp: now,
+    });
+  };
+
+  const selectedStrategy = strategies.find(s => s.id === strategyId);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="mx-auto max-w-4xl px-4 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+      <div className="flex flex-col items-center text-center space-y-4 mb-12">
+        <div className="inline-flex items-center gap-2 rounded-full border border-primary/10 bg-primary/5 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-primary animate-pulse">
+          <Zap className="h-3 w-3" />
+          Confirm Plus Chop AI Luck
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+        <h1 className="text-4xl md:text-6xl font-black tracking-tight text-slate-900">
+          Want to <span className="text-primary">HUAT</span>? Pick Numbers Now!
+        </h1>
+        <p className="max-w-xl text-slate-500 font-medium md:text-lg">
+          Don&apos;t blur lah! Just pick one logical strategy below and generate your HUAT numbers. Our prediction engine steady one!
+        </p>
+      </div>
+
+      <div className="space-y-12 pb-24">
+        {/* Strategy Section */}
+        <section className="space-y-6">
+          <div className="flex items-center justify-between px-2">
+            <h2 className="flex items-center gap-2 text-sm font-black uppercase tracking-widest text-slate-400">
+              <Settings2 className="h-4 w-4" />
+              1. Select Strategy
+            </h2>
+          </div>
+          
+          <StrategyGrid selectedId={strategyId} onSelect={setStrategyId} strategies={strategies} />
+          
+          {selectedStrategy ? ( // Conditional rendering for strategy logic or placeholder
+            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xl animate-in zoom-in duration-300">
+              <div className="flex items-start gap-4">
+                <div className="hidden sm:flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <Dices className="h-5 w-5" />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="font-bold text-slate-900">{selectedStrategy.name} Logic</h3>
+                  <p className="text-sm text-slate-500 leading-relaxed italic">
+                    {selectedStrategy.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center p-12 text-center space-y-3 animate-in fade-in zoom-in duration-500">
+              <div className="w-16 h-16 rounded-full bg-primary/5 flex items-center justify-center">
+                <Settings2 className="w-8 h-8 text-primary/20" />
+              </div>
+              <h3 className="font-bold text-xs uppercase tracking-widest text-primary/40">No Strategy Selected</h3>
+              <p className="text-[11px] text-slate-400 max-w-[200px]">
+                Select a statistical engine above to begin generating your lucky numbers.
+              </p>
+            </div>
+          )}
+        </section>
+
+
+
+        {/* Action Bar */}
+        <section className="sticky bottom-4 z-40 sm:bottom-6">
+          <div className="bg-white rounded-2xl sm:rounded-[2.5rem] border border-slate-200 p-2 sm:p-3 shadow-[0_20px_50px_rgba(0,0,0,0.1)] ring-1 ring-slate-200/50">
+
+            <div className="flex items-center justify-between gap-2 sm:gap-4">
+              <div className="flex items-center gap-2 sm:gap-4 pl-2 sm:pl-4">
+                <div className="space-y-0.5 hidden md:block">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Total Sets</p>
+                  <p className="text-xs font-bold text-slate-900">How many rows?</p>
+                </div>
+                <div className="h-8 w-px bg-slate-200 hidden md:block" />
+                <div className="scale-90 sm:scale-100 origin-left">
+                  <SetCounter value={setCount} onChange={setSetCount} />
+                </div>
+              </div>
+
+              <Button 
+                onClick={handleGenerate}
+                size="lg"
+                disabled={!selectedStrategy}
+                className={cn(
+                  "h-11 sm:h-14 rounded-xl sm:rounded-full px-4 sm:px-8 gap-2 sm:gap-3 text-sm sm:text-lg font-black transition-all flex-1 sm:flex-none",
+                  selectedStrategy 
+                    ? "bg-primary hover:bg-primary/90 text-white shadow-[0_8px_30px_rgba(255,0,0,0.15)] hover:scale-[1.02] active:scale-[0.98]" 
+                    : "bg-primary/5 text-primary/20 cursor-not-allowed opacity-50 border border-primary/10"
+                )}
+              >
+                {!selectedStrategy ? (
+                  <>
+                    <Settings2 className="h-4 w-4 sm:h-5 sm:w-5 hidden xs:block" />
+                    <span className="text-[10px] xs:text-sm">SELECT STRATEGY</span>
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="h-4 w-4 sm:h-5 sm:w-5" />
+                    <span className="hidden xs:inline text-sm sm:text-lg">GENERATE NOW</span>
+                    <span className="xs:hidden text-[10px]">GENERATE</span>
+                    <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 hidden sm:block" />
+                  </>
+                )}
+
+              </Button>
+            </div>
+          </div>
+        </section>
+
+
+
+        {/* Results Section */}
+        {results.length > 0 && (
+          <section className="space-y-8 py-8 pb-32 sm:pb-24 animate-in fade-in slide-in-from-top-4 duration-700">
+
+            <div className="flex flex-col items-center text-center space-y-3">
+              <div className="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-gradient-to-r from-orange-50 to-amber-50 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-orange-600 shadow-sm transition-transform hover:scale-110">
+                <Sparkles className="h-3 w-3" />
+                Your Luck Is Here Lah!
+              </div>
+              <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight flex items-center gap-3">
+                Your <span className="text-primary">HUAT</span> Picks
+                <PartyPopper className="h-8 w-8 text-primary/20 animate-bounce hidden sm:block" />
+              </h2>
+              <p className="text-sm font-bold text-slate-400 uppercase tracking-[0.2em]">
+                Click one row once you buy already!
+              </p>
+            </div>
+
+            <HuatMeter 
+              numbers={results.map(r => r.numbers)} 
+              history={history} 
+              gameType={activeGameId === "sg-4d" ? "4d" : "toto"} 
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+
+            <div className="grid grid-cols-1 gap-4">
+              {results.map((r, idx) => (
+                <div 
+                  key={r.timestamp} 
+                  className="animate-in fade-in slide-in-from-bottom-4 fill-mode-both"
+                  style={{ animationDelay: `${idx * 100}ms` }}
+                >
+                  {activeGameId === "sg-4d" ? (
+                    <FourDResultSet number={r.numbers[0]} />
+                  ) : (
+                    <ResultSet numbers={r.numbers} />
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
     </div>
   );
 }

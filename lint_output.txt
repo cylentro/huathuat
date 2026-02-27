@@ -1,0 +1,93 @@
+
+> toto-generator@0.1.0 lint
+> eslint
+
+
+/Users/christianhadianto/Documents/TechSmith/huathuat/src/app/analytics/page.tsx
+   11:3    warning  'Trophy' is defined but never used                               @typescript-eslint/no-unused-vars
+   14:3    warning  'Clock' is defined but never used                                @typescript-eslint/no-unused-vars
+   26:10   warning  'Separator' is defined but never used                            @typescript-eslint/no-unused-vars
+   77:39   warning  'idx' is defined but never used                                  @typescript-eslint/no-unused-vars
+  206:19   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  206:38   error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  206:124  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+/Users/christianhadianto/Documents/TechSmith/huathuat/src/app/page.tsx
+  37:5   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/christianhadianto/Documents/TechSmith/huathuat/src/app/page.tsx:37:5
+  35 |   // Reset on game change
+  36 |   useEffect(() => {
+> 37 |     setStrategyId("");
+     |     ^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  38 |     setResults([]);
+  39 |   }, [activeGameId]);
+  40 |  react-hooks/set-state-in-effect
+  77:14  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      react/no-unescaped-entities
+
+/Users/christianhadianto/Documents/TechSmith/huathuat/src/components/layout/Navbar.tsx
+   8:3   warning  'LayoutDashboard' is defined but never used       @typescript-eslint/no-unused-vars
+  10:3   warning  'ChevronDown' is defined but never used           @typescript-eslint/no-unused-vars
+  24:49  warning  'currentGame' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/christianhadianto/Documents/TechSmith/huathuat/src/components/toto/StatsPanel.tsx
+  4:10  warning  'Card' is defined but never used         @typescript-eslint/no-unused-vars
+  4:16  warning  'CardHeader' is defined but never used   @typescript-eslint/no-unused-vars
+  4:28  warning  'CardTitle' is defined but never used    @typescript-eslint/no-unused-vars
+  4:39  warning  'CardContent' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/christianhadianto/Documents/TechSmith/huathuat/src/components/toto/StrategyGrid.tsx
+  28:32  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/christianhadianto/Documents/TechSmith/huathuat/src/context/GameContext.tsx
+   5:10  warning  'SINGAPORE_TOTO' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/no-unused-vars
+  50:7   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/christianhadianto/Documents/TechSmith/huathuat/src/context/GameContext.tsx:50:7
+  48 |     const gameParam = searchParams.get("game") as GameId;
+  49 |     if (gameParam && GAMES.find(g => g.id === gameParam) && gameParam !== activeGameId) {
+> 50 |       setActiveGameIdState(gameParam);
+     |       ^^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  51 |     }
+  52 |     
+  53 |     // Also ensure 'page' reflects current path if not there  react-hooks/set-state-in-effect
+  63:6   warning  React Hook useEffect has missing dependencies: 'activeGameId' and 'router'. Either include them or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               react-hooks/exhaustive-deps
+  77:9   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/christianhadianto/Documents/TechSmith/huathuat/src/context/GameContext.tsx:77:9
+  75 |     if (savedHistory) {
+  76 |       try {
+> 77 |         setHistory(JSON.parse(savedHistory));
+     |         ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  78 |       } catch (e) {
+  79 |         console.error("Failed to load history", e);
+  80 |       }                                                                                                           react-hooks/set-state-in-effect
+
+/Users/christianhadianto/Documents/TechSmith/huathuat/src/lib/generators/types.ts
+  2:10  warning  'TotoDraw' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/christianhadianto/Documents/TechSmith/huathuat/src/lib/strategies/four-d.ts
+    8:39  warning  'config' is defined but never used               @typescript-eslint/no-unused-vars
+  146:13  error    'next' is never reassigned. Use 'const' instead  prefer-const
+
+✖ 24 problems (9 errors, 15 warnings)
+  1 error and 0 warnings potentially fixable with the `--fix` option.
+

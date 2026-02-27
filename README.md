@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧧 HUAT HUAT - Confirm Plus Chop AI Luck
 
-## Getting Started
+Steady pom pi pi! **HUAT HUAT** is your ultimate companion for generating lucky numbers in Singapore. Whether you're chasing the big Toto jackpot or aiming for the 4D top prize, our "prediction engine" (lots of stats and some vibes) has you covered.
 
-First, run the development server:
+## ✨ Key Features
+
+- **Double Huat**: Full support for both **Singapore Toto** (6/49) and **Singapore 4D**.
+- **Big Data Vibes**: Strategies based on historical frequency, hot/cold analysis, and logical patterns.
+- **Ultra Premium UI**: A vibrant, mobile-first design with smooth animations, sparkles, and that local flavor you love.
+- **Huat Meter**: Visual feedback on how "lucky" your generated sets are based on historical trends.
+- **Strategy Selection**: Pick from a variety of statistical and pattern-based generators.
+
+## 🚀 Built With
+
+- **Next.js 15+** (App Router)
+- **Tailwind CSS** (v4)
+- **Lucide Icons**
+- **Shadcn UI**
+- **Framer Motion** (Animations)
+
+## 🛠️ Getting Started
+
+First, install the dependencies:
+
+```bash
+npm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🎲 Strategies
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Toto
+- **Frequency Analysis**: Weighted toward numbers that appear most often.
+- **Balanced Mix**: Ensures a healthy split of odd/even and high/low numbers.
+- **Delta System**: Uses "step" logic based on historical gaps.
+- **Cycle Tracker**: Tracks when numbers are next "due" to appear.
 
-## Learn More
+### 4D
+- **Hot/Cold Digits**: Analyzes the most and least frequent digits across all 23 winning positions.
+- **Pattern Match**: Generates numbers following specific digital patterns (AAAA, AABB, etc.).
+- **Sum Target**: Targets specific digital sums that fall within the most common historical range.
+- **Mirror/Reverse**: Generates numbers based on recent winning trends.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Remember ah — HUAT is a mindset, not a guarantee! Play smart, play safe. 🧧**
