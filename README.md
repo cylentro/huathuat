@@ -2,7 +2,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Features
 - **Singapore Toto & 4D Generators**: Lucky numbers generated with various strategies (Statistical, Historic, etc.).
-- **Festive Theme**: A cheerful Chinese New Year "Lantern Red" color scheme.
+- **Festive Theme & Fun Background**: A cheerful color scheme paired with an interactive 3D parallax background.
+- **Glassmorphic UI**: Sleek, transparent UI elements with detailed animations.
 - **Local Storage History**: Your generated numbers history is saved locally in your browser.
 
 ## Getting Started

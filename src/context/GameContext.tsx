@@ -22,6 +22,8 @@ interface HistoryItem {
   sets: number[][];
   timestamp: number;
   gameId: GameId;
+  huatScore?: number;
+  huatLevel?: string;
 }
 
 interface GameContextType {
